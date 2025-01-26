@@ -4,6 +4,23 @@ import axios from "axios";
 import Button from "../../components/Common/Button";
 import "./Where2.css";
 import { countryNamesInKorean } from "../Data/countryNames";
+import styled from "styled-components";
+
+const Buttons = styled(Button)`
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 export default function Where2() {
   const navigate = useNavigate();
@@ -144,7 +161,7 @@ export default function Where2() {
 
       {/* 확인 버튼 */}
       <div className="button-container">
-        <Button
+        <Buttons
           size="S"
           name="확인"
           $bgColor="blue"

@@ -90,7 +90,7 @@
   margin-top: 40px;
 }
 
-button {
+/* button {
   font-size: 16px;
   font-weight: bold;
   border: none;
@@ -100,8 +100,8 @@ button {
   color: white;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} */
 
-button:hover {
+/* button:hover {
   background-color: #0056b3;
-}
+} */

@@ -75,7 +75,7 @@ export default function TourCard({ Tourdata }: TourCardProps) {
       : 0;
 
   return (
-    <Card to="Tour" $bgImg={bgImg}>
+    <Card to="/Tour" state={{ Tourdata }} $bgImg={bgImg}>
       <div>
         <TitleWrap>
           <h2>{name}</h2>
@@ -86,6 +86,8 @@ export default function TourCard({ Tourdata }: TourCardProps) {
           $precent={progress ? progress.toFixed(2) + "%" : "0%"}
           startOfDay={startOfDay}
           endOfDay={endOfDay}
+          $bgColor="white"
+          $backGraphColor="#626262"
         />
         {/* 진행률 기입 시 자동 변경 */}
       </div>

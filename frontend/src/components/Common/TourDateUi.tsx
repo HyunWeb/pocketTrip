@@ -5,6 +5,8 @@ interface DateUiState {
   $precent: string;
   startOfDay: string;
   endOfDay: string;
+  $bgColor: string;
+  $backGraphColor: string;
 }
 
 const DateWrap = styled.div`
@@ -27,7 +29,7 @@ const StartDate = styled(DateNum)`
 const EndDate = styled(DateNum)`
   text-align: right;
 `;
-const Graph = styled.div`
+const Graph = styled.div<{ $backGraphColor: string }>`
   width: 100%;
   position: relative;
   &::before {
@@ -38,12 +40,12 @@ const Graph = styled.div`
     transform: translate(-50%, -50%);
     width: 90%;
     height: 5px;
-    background-color: #626262;
+    background-color: ${(props) => props.$backGraphColor};
     border-radius: 30px;
   }
 `;
 
-const MovingGraph = styled.div<{ $precent: string }>`
+const MovingGraph = styled.div<{ $precent: string; $bgColor: string }>`
   width: ${(props) => props.$precent};
   transition-duration: 500ms;
   position: absolute;
@@ -51,7 +53,7 @@ const MovingGraph = styled.div<{ $precent: string }>`
   left: 0%;
   transform: translateY(-50%);
   height: 5px;
-  background-color: white;
+  background-color: ${(props) => (props.$bgColor ? props.$bgColor : "white")};
   border-radius: 30px;
 
   svg {
@@ -65,6 +67,8 @@ export default function TourDateUi({
   $precent,
   startOfDay,
   endOfDay,
+  $bgColor = "white",
+  $backGraphColor,
 }: DateUiState) {
   // "2025-01-18" >>> ['25.01', '18'] 로 변환
   // 출발일
@@ -83,8 +87,8 @@ export default function TourDateUi({
         <span>{startOfArr[1]}</span> <br />
         {startOfArr[0]}
       </StartDate>
-      <Graph>
-        <MovingGraph $precent={$precent}>
+      <Graph $backGraphColor={$backGraphColor}>
+        <MovingGraph $precent={$precent} $bgColor={$bgColor}>
           <IoAirplane
             size="30px"
             color="black"
