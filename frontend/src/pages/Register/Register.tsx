@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import Button from "../../components/Common/Button";
 
-const RegisterPage: React.FC = () => {
+const Register: React.FC = () => {
   const [formData, setFormData] = useState({
     username: "",
     emailAddr: "",
@@ -153,4 +153,4 @@ const RegisterPage: React.FC = () => {
   );
 };
 
-export default RegisterPage;
+export default Register;

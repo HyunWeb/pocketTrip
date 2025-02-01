@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Common/Button";
 import styled from "styled-components";
 
@@ -29,19 +30,20 @@ const MoneyInfoWrap = styled.div`
       font-weight: 400;
     }
   }
-  /* strong > span {
-    color: #7e7e7e;
-    font-size: 36px;
-  } */
 `;
 
 export default function MoneyInfo() {
+  const navigate = useNavigate();
+
+  const goToAccountBook = () => {
+    navigate("/Accountbook");
+  };
+
   return (
     <MoneyInfoWrap>
       <h2>현재예산</h2>
       <strong>2,000,000</strong>
-      {/* <span>₩</span> */}
-      <Button size="M" name="가계부 작성" />
+      <Button size="M" name="가계부 작성" onClick={goToAccountBook} />
     </MoneyInfoWrap>
   );
 }

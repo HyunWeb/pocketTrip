@@ -16,6 +16,7 @@ import Where4 from "./pages/Where/Where4";
 import Where5 from "./pages/Where/Where5";
 import Where6 from "./pages/Where/Where6";
 import Tour from "./pages/Tour/Tour";
+import AccountBook from "./pages/Tour/AccountBook";
 import TourMembers from "./pages/TourMembers/TourMembers";
 import MoneyChart from "./pages/MoneyChart/MoneyChart";
 
@@ -47,14 +48,10 @@ function App() {
           <Route path="/Login/Register" element={<Register />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/mypage" element={<MyPage />} />
-
-          {/* Where1에서 travelData와 updateTravelData를 props로 전달 */}
           <Route
             path="/Where1"
             element={<Where1 updateTravelData={updateTravelData} />}
           />
-
-          {/* Where2에서 travelData와 updateTravelData를 props로 전달 */}
           <Route
             path="/Where2"
             element={
@@ -64,8 +61,6 @@ function App() {
               />
             }
           />
-
-          {/* Where3에서 travelData와 updateTravelData를 props로 전달 */}
           <Route
             path="/Where3"
             element={
@@ -75,7 +70,6 @@ function App() {
               />
             }
           />
-
           <Route
             path="/Where4"
             element={
@@ -95,10 +89,10 @@ function App() {
             }
           />
           <Route path="/Where6" element={<Where6 />} />
-
           <Route path="/Tour" element={<Tour />} />
           <Route path="/TourMembers" element={<TourMembers />} />
           <Route path="/MoneyChart" element={<MoneyChart />} />
+          <Route path="/accountbook" element={<AccountBook />} />
         </Routes>
       </BrowserRouter>
       {alertState && <AlertBox />}
