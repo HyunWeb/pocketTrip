@@ -31,7 +31,9 @@ const Buttons = styled.button<{ $selected: boolean }>`
   font-family: inherit;
   padding: 5px;
 `;
-
+const ListWrap = styled.div`
+  overflow: scroll;
+`;
 const LogList = styled.ul`
   .LogItem:last-child {
     padding-bottom: 70px;
@@ -71,21 +73,22 @@ export default function Usehistory({ logs }: logsProps) {
           </Buttons>
         ))}
       </ButtonsWrap>
-
-      <LogList>
-        {filteringLogs.map((log, index) => (
-          <MoneyLog
-            className="LogItem"
-            key={index}
-            LogState={log.LogState}
-            title={log.title}
-            detail={log.detail}
-            profile={log.profile}
-            type={log.type}
-            money={log.money}
-          />
-        ))}
-      </LogList>
+      <ListWrap>
+        <LogList>
+          {filteringLogs.map((log, index) => (
+            <MoneyLog
+              className="LogItem"
+              key={index}
+              LogState={log.LogState}
+              title={log.title}
+              detail={log.detail}
+              profile={log.profile}
+              type={log.type}
+              money={log.money}
+            />
+          ))}
+        </LogList>
+      </ListWrap>
     </div>
   );
 }

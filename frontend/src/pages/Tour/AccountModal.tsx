@@ -12,6 +12,7 @@ interface AccountModal {
   accountModalContent: string;
   travel: TravelPlan;
   setAccountModalContent: (value: "AccountBook" | "categories") => void;
+  subscribeToNewLogs: () => void;
 }
 
 type TravelPlan = {
@@ -68,6 +69,7 @@ export default function AccountModal({
   accountModalContent,
   travel,
   setAccountModalContent,
+  subscribeToNewLogs,
 }: AccountModal) {
   return (
     <ModalBox $isActive={modalMoving}>
@@ -85,6 +87,7 @@ export default function AccountModal({
           travel={travel}
           setAccountModalContent={setAccountModalContent}
           ChangeState={ChangeState}
+          subscribeToNewLogs={subscribeToNewLogs}
         />
       )}
     </ModalBox>

@@ -26,7 +26,6 @@ type TravelPlan = {
   encryptCode: string;
 };
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,9 +180,7 @@ export default function AccountBook({
     { name: "홍길동", email: "email4@naver.com" },
   ];
 
-
   useEffect(() => {
-
     if (travel.location) {
       // 1. 한글 국가명으로 영어 국가명 찾기
       const englishCountryName = Object.keys(countryNamesInKorean).find(
@@ -219,7 +216,6 @@ export default function AccountBook({
       console.log("country 값이 전달되지 않았습니다.");
     }
   }, [travel.location]);
-
 
   const fetchExchangeRate = async (selectedCurrency: string) => {
     try {

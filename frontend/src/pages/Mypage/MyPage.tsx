@@ -29,6 +29,7 @@ export default function MyPage() {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [TourDataArr, setTourDataArr] = useState<TravelPlan[]>([]);
+
   const SECRET_KEY = process.env.REACT_APP_SECRET_KEY || "default-secret-key";
   const IV = CryptoJS.enc.Utf8.parse("1234567890123456"); // 16바이트 IV
 
@@ -55,23 +56,6 @@ export default function MyPage() {
   useEffect(() => {
     dispatch(ChangeCurrentPage("mypage"));
     const token = localStorage.getItem("accessToken");
-
-    const getTravelData = async (token: string) => {
-      // 유저의 모든 여행 기록을 받아온다.
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/plan/find`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setTourDataArr(response.data.data);
-      console.log(response);
-      console.log(TourDataArr);
-    };
 
     getTravelData(token as string); // 여행 정보 요청
   }, []);

@@ -7,11 +7,14 @@ import { RootState } from "@/store";
 import { countryNamesInKorean } from "../Data/countryNames";
 import DatePicker from "react-datepicker";
 import "../../styles/calender.css";
+import { Client } from "@stomp/stompjs";
+import { socketService } from "./socketService";
 
 interface CategoryState {
   travel: TravelPlan;
   setAccountModalContent: (value: "AccountBook" | "categories") => void;
   ChangeState: () => void;
+  subscribeToNewLogs: () => void;
 }
 type TravelPlan = {
   id: string;
@@ -184,6 +187,7 @@ export default function Categories({
   travel,
   setAccountModalContent,
   ChangeState,
+  subscribeToNewLogs,
 }: CategoryState) {
   // const location = useLocation();
   // const { amount, paymentType, selectedUser } = location.state;
@@ -230,7 +234,6 @@ export default function Categories({
   //   });
   // }, [encrypted]);
 
-
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -247,34 +250,39 @@ export default function Categories({
     const selectedCategory = categories.find(
       (cat) => cat.id === selectedCategoryId
     );
-    const data = {
-      travelCode: travel.travelCode,
-      currency: travel.location,
-      amount: Number(amount),
-      KRW: 1000,
-      date: selectedDate,
-      payer: selectedUser?.email,
+    // const data = {
+    //   travelCode: travel.travelCode,
+    //   currency: travel.location,
+    //   amount: Number(amount),
+    //   KRW: 1000,
+    //   date: selectedDate,
+    //   payer: selectedUser?.email,
 
-      method: paymentType,
-      description,
+    //   method: paymentType,
+    //   description,
+    //   purpose: selectedCategory ? selectedCategory.label : "데이터 없음",
+    // };
+
+    const expendituresData = {
       purpose: selectedCategory ? selectedCategory.label : "데이터 없음",
+      method: paymentType,
+      isPublic: true,
+      payer: selectedUser?.email,
+      date: selectedDate,
+      KRW: 1000,
+      amount: Number(amount),
+      currency: travel.location,
+      description,
     };
     try {
       const token = localStorage.getItem("accessToken");
-      await axios.post(
-        `http://localhost:8080/expenditures/${travel.travelCode}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      socketService.addSpend(travel.travelCode, expendituresData, token);
+      // subscribeToNewLogs();
+
       ChangeState();
       setAccountModalContent("AccountBook");
 
-      console.log("데이터 저장 성공:", data);
+      console.log("데이터 저장 성공:", expendituresData);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("데이터 저장 실패:", error.response?.data);
@@ -330,7 +338,6 @@ export default function Categories({
       <Amount $paymentType={paymentType}>{`${Number(
         amount
       ).toLocaleString()} ₩`}</Amount>
-
 
       <Display
         $hasDescription={!!description}
