@@ -42,7 +42,7 @@ public class WebSecurityConfig {
                 .sessionManagement(
                         sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/","/auth/**", "/rate/**","/ws/**", "/api/**","/public/**").permitAll().anyRequest().authenticated());
-
+        //로그인, 환율, 소켓만 비로그인 시 접속 가능 나머지는 jwt 토큰 필요
         http.addFilterBefore(jwtAuthenticationFilter, CorsFilter.class);
 
         return http.build();
